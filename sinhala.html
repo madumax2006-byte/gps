@@ -1,1 +1,1012 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ගලේවෙල ප්‍රාදේශීය සභාව</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
+        :root {
+            --primary-color: #c5084a;
+            --secondary-color: #ffffff;
+            --accent-color: #3b82f6;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --transition: all 0.3s ease;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ffffff, #ffffff 100%);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            transition: var(--transition);
+        }
+
+        body.dark-mode {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: var(--secondary-color);
+        }
+
+        /* Glass effect utility class */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Navigation Bar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        nav.scrolled {
+            padding: 0.5rem 5%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-right: 10px;
+            border: 2px solid white;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .nav-links li {
+            margin: 0 15px;
+        }
+
+        .nav-links a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover:after {
+            width: 100%;
+        }
+
+        .nav-options {
+            display: flex;
+            align-items: center;
+        }
+
+        .language-option {
+            margin-right: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .language-option i {
+            margin-right: 5px;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: inherit;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 0 5%;
+        }
+
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            z-index: 1;
+            animation: fadeIn 1.5s ease;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            color: white;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* About Section */
+        .about {
+            padding: 100px 5%;
+            animation: fadeUp 1s ease;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            display: inline-block;
+            position: relative;
+        }
+
+        .section-title h2:after {
+            content: '';
+            position: absolute;
+            width: 70%;
+            height: 3px;
+            background: var(--primary-color);
+            bottom: -10px;
+            left: 15%;
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .about-image img:hover {
+            transform: scale(1.05);
+        }
+
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .about-text p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+            color: inherit;
+        }
+
+        /* Gallery Section */
+        .gallery {
+            padding: 100px 5%;
+            background: rgba(219, 234, 254, 0.3);
+            animation: fadeUp 1s ease;
+        }
+
+        body.dark-mode .gallery {
+            background: rgba(30, 41, 59, 0.3);
+        }
+
+        .gallery-container {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .slideshow {
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide-title {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .slide-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 100;
+            transition: var(--transition);
+        }
+
+        .slide-nav:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .prev {
+            left: 20px;
+        }
+
+        .next {
+            right: 20px;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 5%;
+            animation: fadeUp 1s ease;
+        }
+
+        .contact-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .map {
+            flex: 1;
+            min-width: 300px;
+            height: 400px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .map iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .contact-form {
+            flex: 1;
+            min-width: 300px;
+            padding: 30px;
+            border-radius: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+        }
+
+        .google-form-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .google-form-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            background: #4CAF50;
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 10000;
+            transform: translateX(150%);
+            transition: transform 0.5s ease;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-color);
+            color: white;
+            padding: 50px 5% 20px;
+            border-top: 5px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .footer-logo {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-logo .logo-circle {
+            margin-bottom: 15px;
+        }
+
+        .footer-links {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .footer-links h4 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-links h4:after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 2px;
+            background: white;
+            bottom: -8px;
+            left: 0;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-links i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            padding-left: 5px;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-icons a:hover {
+            background: white;
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Scroll to top button */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            z-index: 999;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .scroll-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-to-top:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .nav-links {
+                position: static;
+                transform: none;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero-content p {
+                font-size: 1rem;
+            }
+            
+            .about-content, .contact-container {
+                flex-direction: column;
+            }
+            
+            .slideshow {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        පණිවිඩය සාර්ථකව යවන ලදි!
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav id="navbar">
+        <div class="logo">
+            <div class="logo-circle">ග.ප්‍ර.</div>
+            <span>ගලේවෙල ප්‍රා.ස.</span>
+        </div>
+        
+        <ul class="nav-links">
+            <li><a href="#home">මුල් පිටුව</a></li>
+            <li><a href="#about">අප ගැන</a></li>
+            <li><a href="#gallery">ගැලරිය</a></li>
+            <li><a href="#contact">සම්බන්ධ කරන්න</a></li>
+        </ul>
+
+        <div class="nav-options" style="
+        display:flex; align-items:center; gap:10px; font-size:14px; padding:6px; 
+        border:1px solid rgba(255,255,255,0.3); 
+        border-radius:12px; 
+        background:rgba(255, 255, 255, 0.1); 
+        backdrop-filter: blur(10px) saturate(180%); 
+        -webkit-backdrop-filter: blur(10px) saturate(180%); 
+        box-shadow:0 4px 20px rgba(0,0,0,0.25); 
+    ">
+        
+        <div class="language-option" style="
+            display:flex; align-items:center; gap:6px; 
+            padding:4px 8px; 
+            border:1px solid rgba(255,255,255,0.3); 
+            border-radius:8px; 
+            background:rgba(255,255,255,0.2); 
+            backdrop-filter: blur(8px); 
+            -webkit-backdrop-filter: blur(8px); 
+            box-shadow:inset 1px 1px 3px rgba(255,255,255,0.3);">
+            <i class="fas fa-globe" style="font-size:14px; color:red;"></i>
+            <select id="languageSelect" style="
+                font-size:12px; padding:4px 6px; 
+                border-radius:5px; border:1px solid rgba(255,255,255,0.4); 
+                background:rgba(255,255,255,0.15); 
+                color:red; 
+                backdrop-filter: blur(6px); 
+                -webkit-backdrop-filter: blur(6px);
+                cursor:pointer;">
+                <option value="sinhala.html" selected>සිංහල</option>
+                <option value="index.html">English</option>
+            </select>
+        </div>
+    
+        <button class="theme-toggle" id="themeToggle" style="
+            padding:6px 8px; font-size:14px; border-radius:50%; 
+            border:1px solid rgba(255,255,255,0.3); 
+            background:rgba(255,255,255,0.15); 
+            backdrop-filter: blur(8px); 
+            -webkit-backdrop-filter: blur(8px);
+            cursor:pointer; 
+            box-shadow:0 2px 6px rgba(0,0,0,0.3);">
+            <i class="fas fa-moon" style="font-size:14px; color:red;"></i>
+        </button>
+    </div>
+    </nav>
+    <script>
+        document.getElementById("languageSelect").addEventListener("change", function () {
+            window.location.href = this.value;
+        });
+    </script>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <video class="video-background" autoplay muted loop>
+            <source src="/media/bc.mp4" type="video/mp4">
+            ඔබගේ බ්‍රවුසරය වීඩියෝ ටැගයට සහය නොදක්වයි.
+        </video>
+        
+        <div class="hero-content glass" style="padding: 40px; border-radius: 20px;">
+            <h1>ගලේවෙල ප්‍රාදේශීය සභාවට සාදරයෙන් පිළිගනිමු</h1>
+            <p>වඩා හොඳ හෙට දිනක් සඳහා කැපවීමෙන් හා විශිෂ්ටත්වයෙන් ප්‍රජාවට සේවය කිරීම</p>
+            <a href="#about" class="btn">වැඩිදුර ගවේෂණය</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="section-title">
+            <h2>අප ගැන</h2>
+        </div>
+        
+        <div class="about-content">
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1568992687947-868a62a9f521?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="ගලේවෙල භූ දර්ශනය">
+            </div>
+            
+            <div class="about-text">
+                <h3>අපගේ ඉතිහාසය සහ මෙහෙවර</h3>
+                <p>ගලේවෙල ප්‍රාදේශීය සභාව දශක තුනකට වැඩි කාලයක් තිස්සේ ප්‍රජාවට සේවය කරයි. 1990 දී පිහිටුවන ලද අපි, අපගේ කලාපයේ සහ එහි ජනතාවගේ සංවර්ධනය සහ සුබසාධනය වෙනුවෙන් අඛණ්ඩව කටයුතු කර ඇත.</p>
+                <p>අපගේ මෙහෙවර වන්නේ කාර්යක්ෂම පොදු සේවාවන් සැපයීම, ආර්ථික වර්ධනය පෝෂණය කිරීම සහ ගලේවෙලේ සංස්කෘතික උරුමය ආරක්ෂා කරමින් ඉදිරි පරම්පරාවන් සඳහා තිරසාර සංවර්ධනය සහතික කිරීමයි.</p>
+                <p>අපි විනිවිදභාවය, වගවීම සහ ප්‍රජාවේ සහභාගීත්වයට කැපවී ඇත. අපගේ කැපවූ කණ්ඩායම පුරවැසියන්ගේ අවශ්‍යතා සපුරාලීමට සහ ඔවුන්ගේ ජීවන තත්ත්වය ඉහළ නැංවීමට අවිරාමව කටයුතු කරයි.</p>
+                <a href="#contact" class="btn">සම්බන්ධ වන්න</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery" id="gallery">
+        <div class="section-title">
+            <h2>අපගේ ගැලරිය</h2>
+        </div>
+        
+        <div class="gallery-container">
+            <div class="slideshow">
+                <div class="slide active" style="background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80');">
+                    <div class="slide-title">ගලේවෙලේ ලස්සන කඳු පන්තිය</div>
+                </div>
+                <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80');">
+                    <div class="slide-title">ගලේවෙලේ තරු පිරි රාත්‍රිය</div>
+                </div>
+                <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80');">
+                    <div class="slide-title">ගලේවෙලේ උත්කෘෂ්ට කඳු</div>
+                </div>
+                <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80');">
+                    <div class="slide-title">ගලේවෙල වැවේ හිරු බැසීම</div>
+                </div>
+                <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80');">
+                    <div class="slide-title">ගලේවෙලේ හරිත භූ දර්ශන</div>
+                </div>
+                <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80');">
+                    <div class="slide-title">ගලේවෙලේ වනාන්තර මංපෙත්</div>
+                </div>
+                <div class="slide" style="background-image: url('https://images.unsplash.com/photo-1418065460487-3e41a6c84dc5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80');">
+                    <div class="slide-title">ගලේවෙලේ කඳුකරයේ හිරු උදාව</div>
+                </div>
+                
+                <div class="slide-nav prev">
+                    <i class="fas fa-chevron-left"></i>
+                </div>
+                <div class="slide-nav next">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="section-title">
+            <h2>සම්බන්ධ කරන්න</h2>
+        </div>
+        
+        <div class="contact-container">
+            <div class="map">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126325.385399366!2d80.58901136759207!3d7.841689408414212!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3afca4ce2278a895%3A0x919c10dab5ef1c1c!2sGalewela!5e0!3m2!1sen!2slk!4v1686742584082!5m2!1sen!2slk" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+            
+            <div class="contact-form glass">
+                <h3>අපට පණිවිඩයක් එවන්න</h3>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">ඔබගේ නම</label>
+                        <input type="text" id="name" placeholder="ඔබගේ නම ඇතුලත් කරන්න" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">විද්‍යුත් තැපැල් ලිපිනය</label>
+                        <input type="email" id="email" placeholder="ඔබගේ විද්‍යුත් තැපැල් ලිපිනය ඇතුලත් කරන්න" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">ස්ත්‍රී/පුරුෂ භාවය</label>
+                        <select id="gender" required>
+                            <option value="">ඔබගේ ස්ත්‍රී/පුරුෂ භාවය තෝරන්න</option>
+                            <option value="male">පුරුෂ</option>
+                            <option value="female">ස්ත්‍රී</option>
+                            <option value="other">වෙනත්</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">පණිවිඩය</label>
+                        <textarea id="message" rows="5" placeholder="ඔබගේ පණිවිඩය මෙහි ටයිප් කරන්න" required></textarea>
+                    </div>
+                    <button type="submit" class="btn">පණිවිඩය යවන්න</button>
+                </form>
+                
+                <a href="https://forms.gle/9PkmVCLi9Ph27pSR9" target="_blank" class="google-form-link">
+                    නැතහොත් අපගේ Google පෝරමය පුරවන්න
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <div class="logo-circle">ග.ප්‍ර.</div>
+                <p>ගලේවෙල ප්‍රාදේශීය සභාව කැපවීමෙන් හා විශිෂ්ටත්වයෙන් ප්‍රජාවට සේවය කිරීමට කැපවී ඇත.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <h4>ඉක්මන් සබැඳි</h4>
+                <ul>
+                    <li><a href="#home"><i class="fas fa-home"></i> මුල් පිටුව</a></li>
+                    <li><a href="#about"><i class="fas fa-info-circle"></i> අප ගැන</a></li>
+                    <li><a href="#gallery"><i class="fas fa-images"></i> ගැලරිය</a></li>
+                    <li><a href="#contact"><i class="fas fa-phone"></i> සම්බන්ධ කරන්න</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h4>සේවාවන්</h4>
+                <ul>
+                    <li><a href="#"><i class="fas fa-baby"></i> උප්පැන්න සහතික</a></li>
+                    <li><a href="#"><i class="fas fa-heart"></i> විවාහ ලියාපදිංචිය</a></li>
+                    <li><a href="#"><i class="fas fa-building"></i> ගොඩනැගිලි බලපත්‍ර</a></li>
+                    <li><a href="#"><i class="fas fa-briefcase"></i> ව්‍යාපාරික බලපත්‍ර</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h4>සම්බන්ධතා තොරතුරු</h4>
+                <ul>
+                    <li><i class="fas fa-map-marker-alt"></i> ප්‍රධාන වීදිය, ගලේවෙල</li>
+                    <li><i class="fas fa-phone"></i> +94 25 123 4567</li>
+                    <li><i class="fas fa-envelope"></i> info@galewelaps.lk</li>
+                    <li><i class="fas fa-clock"></i> සඳුදා-සිකුරාදා: පෙ.ව. 8:30 - ප.ව. 4:30</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2023 ගලේවෙල ප්‍රාදේශීය සභාව. සියලු හිමිකම් ඇවිරිණි. | Enp Media Unit විසින් සංවර්ධනය කරන ලදි</p>
+        </div>
+    </footer>
+
+    <!-- Scroll to top button -->
+    <div class="scroll-to-top" id="scrollToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        const icon = themeToggle.querySelector('i');
+        
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            
+            if (body.classList.contains('dark-mode')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        });
+        
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+            
+            // Show/hide scroll to top button
+            const scrollToTopBtn = document.getElementById('scrollToTop');
+            if (window.scrollY > 300) {
+                scrollToTopBtn.classList.add('visible');
+            } else {
+                scrollToTopBtn.classList.remove('visible');
+            }
+        });
+        
+        // Scroll to top functionality
+        document.getElementById('scrollToTop').addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Image Slideshow Functionality
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.querySelector('.prev');
+        const nextBtn = document.querySelector('.next');
+        let currentSlide = 0;
+        
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            currentSlide = (n + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+        
+        prevBtn.addEventListener('click', () => {
+            showSlide(currentSlide - 1);
+        });
+        
+        nextBtn.addEventListener('click', () => {
+            showSlide(currentSlide + 1);
+        });
+        
+        // Auto slide change
+        setInterval(() => {
+            showSlide(currentSlide + 1);
+        }, 5000);
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Contact Form WhatsApp Integration
+        const contactForm = document.getElementById('contactForm');
+        const notification = document.getElementById('notification');
+        
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const gender = document.getElementById('gender').value;
+            const message = document.getElementById('message').value;
+            
+            // Format the message for WhatsApp
+            const whatsappMessage = `නම: ${name}%0Aවිද්‍යුත් තැපැල්: ${email}%0Aස්ත්‍රී/පුරුෂ භාවය: ${gender}%0Aපණිවිඩය: ${message}`;
+            
+            // Create WhatsApp URL
+            const whatsappURL = `https://wa.me/94719552053?text=${whatsappMessage}`;
+            
+            // Open WhatsApp in a new tab
+            window.open(whatsappURL, '_blank');
+            
+            // Show success notification
+            notification.classList.add('show');
+            
+            // Reset form
+            contactForm.reset();
+            
+            // Hide notification after 3 seconds
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        });
+    </script>
+</body>
+</html>

@@ -465,6 +465,16 @@
             color: white;
             padding: 50px 5% 20px;
             border-top: 5px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+        }
+
+        .footer-border {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #ff6b6b, #c5084a, #3b82f6);
         }
 
         .footer-content {
@@ -562,6 +572,13 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
+        .current-time {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
         /* Scroll to top button */
         .scroll-to-top {
             position: fixed;
@@ -592,6 +609,160 @@
         .scroll-to-top:hover {
             transform: translateY(-5px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Chat Interface */
+        .chat-icon {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 999;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+        }
+
+        .chat-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .chat-container {
+            position: fixed;
+            bottom: 100px;
+            left: 30px;
+            width: 350px;
+            height: 450px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            transform: translateY(150%);
+            transition: transform 0.4s ease;
+        }
+
+        body.dark-mode .chat-container {
+            background: #1e293b;
+            color: white;
+        }
+
+        .chat-container.open {
+            transform: translateY(0);
+        }
+
+        .chat-header {
+            background: var(--primary-color);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-header h3 {
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        .close-chat {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 10px 15px;
+            border-radius: 18px;
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        .message.received {
+            background: #f1f1f1;
+            color: #333;
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+
+        body.dark-mode .message.received {
+            background: #334155;
+            color: white;
+        }
+
+        .message.sent {
+            background: var(--primary-color);
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 15px;
+            border-top: 1px solid #eee;
+            background: #f9f9f9;
+        }
+
+        body.dark-mode .chat-input {
+            background: #1f2937;
+            border-top: 1px solid #374151;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            outline: none;
+            font-size: 0.95rem;
+        }
+
+        body.dark-mode .chat-input input {
+            background: #374151;
+            border-color: #4b5563;
+            color: white;
+        }
+
+        .send-button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .send-button:hover {
+            background: #a5063d;
         }
 
         /* Animations */
@@ -636,6 +807,18 @@
             
             .slideshow {
                 height: 300px;
+            }
+            
+            .chat-container {
+                width: 300px;
+                height: 400px;
+                left: 15px;
+                bottom: 80px;
+            }
+            
+            .chat-icon {
+                left: 15px;
+                bottom: 20px;
             }
         }
     </style>
@@ -732,16 +915,16 @@
         </div>
         
         <div class="about-content">
-            <div class="about-image">
-                <img src="https://images.unsplash.com/photo-1568992687947-868a62a9f521?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="Galewela Landscape">
-            </div>
-            
             <div class="about-text">
                 <h3>Our History & Mission</h3>
                 <p>Galewela Pradeshiya Sabha has been serving the community for over three decades. Established in 1990, we have consistently worked towards the development and welfare of our region and its people.</p>
                 <p>Our mission is to provide efficient public services, foster economic growth, and maintain the cultural heritage of Galewela while ensuring sustainable development for future generations.</p>
                 <p>We are committed to transparency, accountability, and community participation in all our initiatives. Our dedicated team works tirelessly to address the needs of our citizens and improve their quality of life.</p>
                 <a href="#contact" class="btn">Get In Touch</a>
+            </div>
+            
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1568992687947-868a62a9f521?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80" alt="Galewela Landscape">
             </div>
         </div>
     </section>
@@ -833,6 +1016,7 @@
 
     <!-- Footer -->
     <footer>
+        <div class="footer-border"></div>
         <div class="footer-content">
             <div class="footer-logo">
                 <div class="logo-circle">GP</div>
@@ -857,15 +1041,7 @@
                 </ul>
             </div>
             
-            <div class="footer-links">
-                <h4>Services</h4>
-                <ul>
-                    <li><a href="#"><i class="fas fa-baby"></i> Birth Certificate</a></li>
-                    <li><a href="#"><i class="fas fa-heart"></i> Marriage Registration</a></li>
-                    <li><a href="#"><i class="fas fa-building"></i> Building Permits</a></li>
-                    <li><a href="#"><i class="fas fa-briefcase"></i> Business Licenses</a></li>
-                </ul>
-            </div>
+
             
             <div class="footer-links">
                 <h4>Contact Info</h4>
@@ -881,11 +1057,41 @@
         <div class="copyright">
             <p>&copy; 2023 Galewela Pradeshiya Sabha. All Rights Reserved. | Developed by Enp Media Unit</p>
         </div>
+        
+        <div class="current-time" id="current-time">
+            Current Time: <span id="time"></span>
+        </div>
     </footer>
 
     <!-- Scroll to top button -->
     <div class="scroll-to-top" id="scrollToTop">
         <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- Chat Icon -->
+    <div class="chat-icon" id="chatIcon">
+        <i class="fas fa-comments"></i>
+    </div>
+
+    <!-- Chat Container -->
+    <div class="chat-container" id="chatContainer">
+        <div class="chat-header">
+            <h3>Chat with Us</h3>
+            <button class="close-chat" id="closeChat">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="message received">
+                Hello! Welcome to Galewela Pradeshiya Sabha. How can we help you today?
+            </div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="chatInput" placeholder="Type your message...">
+            <button class="send-button" id="sendMessage">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
     </div>
 
     <script>
@@ -1008,6 +1214,78 @@
                 notification.classList.remove('show');
             }, 3000);
         });
+        
+        // Chat Interface Functionality
+        const chatIcon = document.getElementById('chatIcon');
+        const chatContainer = document.getElementById('chatContainer');
+        const closeChat = document.getElementById('closeChat');
+        const chatInput = document.getElementById('chatInput');
+        const sendMessageBtn = document.getElementById('sendMessage');
+        const chatMessages = document.getElementById('chatMessages');
+        
+        chatIcon.addEventListener('click', () => {
+            chatContainer.classList.add('open');
+        });
+        
+        closeChat.addEventListener('click', () => {
+            chatContainer.classList.remove('open');
+        });
+        
+        function sendMessage() {
+            const message = chatInput.value.trim();
+            if (message === '') return;
+            
+            // Add user message
+            const userMessageElement = document.createElement('div');
+            userMessageElement.classList.add('message', 'sent');
+            userMessageElement.textContent = message;
+            chatMessages.appendChild(userMessageElement);
+            
+            // Clear input
+            chatInput.value = '';
+            
+            // Scroll to bottom
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            // Simulate response after a short delay
+            setTimeout(() => {
+                const botMessageElement = document.createElement('div');
+                botMessageElement.classList.add('message', 'received');
+                botMessageElement.textContent = "Thank you for your message. We'll get back to you soon.";
+                chatMessages.appendChild(botMessageElement);
+                
+                // Scroll to bottom again
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 1000);
+        }
+        
+        sendMessageBtn.addEventListener('click', sendMessage);
+        
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+        
+        // Current Time Display
+        function updateTime() {
+            const now = new Date();
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            };
+            const timeString = now.toLocaleDateString('en-US', options);
+            document.getElementById('time').textContent = timeString;
+        }
+        
+        // Update time immediately and then every second
+        updateTime();
+        setInterval(updateTime, 1000);
     </script>
 </body>
 </html>

@@ -689,7 +689,7 @@
                 -webkit-backdrop-filter: blur(6px);
                 cursor:pointer;">
                 <option value="index.html">English</option>
-                <option value="/html/sinhala.html">Sinhala</option>
+                <option value="sinhala.html">Sinhala</option>
             </select>
         </div>
     
@@ -705,6 +705,11 @@
         </button>
     </div>
     </nav>
+    <script>
+        document.getElementById("languageSelect").addEventListener("change", function () {
+            window.location.href = this.value;
+        });
+    </script>
 
     <!-- Hero Section -->
     <section class="hero" id="home">
@@ -951,7 +956,7 @@
         // Auto slide change
         setInterval(() => {
             showSlide(currentSlide + 1);
-        }, 9000);
+        }, 5000);
         
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
